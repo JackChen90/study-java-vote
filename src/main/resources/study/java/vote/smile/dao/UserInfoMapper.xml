@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="study.java.vote.smile.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="study.java.vote.smile.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_guid" jdbcType="VARCHAR" property="userGuid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_title" jdbcType="VARCHAR" property="userTitle" />
+    <result column="heart_count" jdbcType="INTEGER" property="heartCount" />
+    <result column="get_integral" jdbcType="INTEGER" property="getIntegral" />
+    <result column="in_time" jdbcType="VARCHAR" property="inTime" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="smile_3" jdbcType="VARCHAR" property="smile3" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="isegis" jdbcType="INTEGER" property="isegis" />
+    <result column="videopath" jdbcType="VARCHAR" property="videopath" />
+    <result column="user_depart" jdbcType="VARCHAR" property="userDepart" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_guid, user_name, user_title, heart_count, get_integral, in_time, message, 
+    smile_3, comment_count, isegis, videopath, user_depart
+  </sql>
+  <select id="queryAllUsers" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    ORDER BY id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="study.java.vote.smile.model.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_info (id, user_guid, user_name, 
+      user_title, heart_count, get_integral, 
+      in_time, message, smile_3, 
+      comment_count, isegis, videopath, 
+      user_depart)
+    values (#{id,jdbcType=INTEGER}, #{userGuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userTitle,jdbcType=VARCHAR}, #{heartCount,jdbcType=INTEGER}, #{getIntegral,jdbcType=INTEGER}, 
+      #{inTime,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{smile3,jdbcType=VARCHAR}, 
+      #{commentCount,jdbcType=INTEGER}, #{isegis,jdbcType=INTEGER}, #{videopath,jdbcType=VARCHAR}, 
+      #{userDepart,jdbcType=VARCHAR})
+  </insert>
+
+  <!--保存用户信息-->
+  <insert id="saveUserInfo" parameterType="study.java.vote.smile.model.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userGuid != null">
+        user_guid,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userTitle != null">
+        user_title,
+      </if>
+      <if test="heartCount != null">
+        heart_count,
+      </if>
+      <if test="getIntegral != null">
+        get_integral,
+      </if>
+      <if test="inTime != null">
+        in_time,
+      </if>
+      <!--<if test="message != null">-->
+        <!--message,-->
+      <!--</if>-->
+      <if test="smile3 != null">
+        smile_3,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="isegis != null">
+        isegis,
+      </if>
+      <if test="videopath != null">
+        videopath,
+      </if>
+      <if test="userDepart != null">
+        user_depart,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userGuid != null">
+        #{userGuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTitle != null">
+        #{userTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="heartCount != null">
+        #{heartCount,jdbcType=INTEGER},
+      </if>
+      <if test="getIntegral != null">
+        #{getIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="inTime != null">
+        #{inTime,jdbcType=VARCHAR},
+      </if>
+      <!--<if test="message != null">-->
+        <!--#{message,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <if test="smile3 != null">
+        #{smile3,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="isegis != null">
+        #{isegis,jdbcType=INTEGER},
+      </if>
+      <if test="videopath != null">
+        #{videopath,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepart != null">
+        #{userDepart,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
